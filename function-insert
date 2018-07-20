@@ -1,0 +1,32 @@
+/**
+ * Function to insert policy
+ **/
+exports = function(payload) {
+  
+  console.log("Inserting policy.");
+  
+  var payloadObject = EJSON.parse(payload.body.text());
+  
+  // connect to the atlas service    
+  var mongodb = context.services.get("mongodb-atlas");
+  var policyCollection = mongodb.db("rds").collection("policy");
+  
+  var timestamp = new Date();
+  
+  /**
+  var query =
+  {
+    "policyId"      : payloadObject.policyId,
+    "customerName"  : payloadObject.customerName,
+    "timestamp"     : timestamp
+  };
+  */
+  
+  return policyCollection
+    .insertOne(payloadObject)
+    .then(result => {
+      const { insertedId } = result;
+      // Do something with the insertedId
+      return `Inserted document with _id: ${insertedId}`;
+   });
+};
