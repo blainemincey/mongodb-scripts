@@ -1,0 +1,15 @@
+/**
+ * Function to return policy based on policyId
+ **/
+exports = function(payload) {
+  var thePolicyId = BSON.Int32(payload.query.policyId);
+  console.log("Retrieve policy for policyId: " + thePolicyId);   
+  
+  // connect to the atlas service    
+  var mongodb = context.services.get("mongodb-atlas");
+  var policyCollection = mongodb.db("rds").collection("policy");
+  
+  var query = {"policyId":thePolicyId};
+  
+  return policyCollection.findOne(query);
+};
