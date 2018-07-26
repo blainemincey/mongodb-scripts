@@ -2,7 +2,7 @@
  * Function to return policy based on policyId
  **/
 exports = function(payload) {
-  var thePolicyId = BSON.Int32(payload.query.policyId);
+  var thePolicyId = payload.query.policyId;
   console.log("Retrieve policy for policyId: " + thePolicyId);   
   
   // connect to the atlas service    
